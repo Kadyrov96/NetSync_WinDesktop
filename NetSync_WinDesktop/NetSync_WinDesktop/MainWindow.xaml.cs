@@ -1,17 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace NetSync_WinDesktop
 {
@@ -23,39 +10,34 @@ namespace NetSync_WinDesktop
         public MainWindow()
         {
             InitializeComponent();
+            double screenHeight = SystemParameters.FullPrimaryScreenHeight;
+            double screenWidth = SystemParameters.FullPrimaryScreenWidth;
+            Top = (screenHeight - Height) / 2;
+            Left = (screenWidth - Width) / 2;
         }
 
-        private void dirSelect_button_Click(object sender, RoutedEventArgs e)
+
+        private void ConnectionSettings_Btn_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void settings_button_Click(object sender, RoutedEventArgs e)
+        private void StartSyncService_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void startSync_button_Click(object sender, RoutedEventArgs e)
+        private void StopSyncService_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void localScan_button_Click(object sender, RoutedEventArgs e)
+        private void Info_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void import_button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void export_button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void SyncProfilesMenu_Btn_Click(object sender, RoutedEventArgs e)
         {
 
         }

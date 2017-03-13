@@ -7,41 +7,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
-        Title="NETSYNC FOR WIN_DESKTOP" Height="290" Width="390" ResizeMode="CanMinimize">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal" Margin="104,0,88,12" HorizontalAlignment="Center">
-                <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+        Icon="C:\Users\kadyr\Desktop\Диплом\NetSync_WinDesktop\Drawable\logo.ico"
+        ShowIconOnTitleBar="False"
+        Title="NETSYNC FOR WIN_DESKTOP" Height="90" Width="280" ResizeMode="CanMinimize">
+    <Grid Margin="0,0,0,0" HorizontalAlignment="Center" Width="334">
+        <StackPanel Orientation="Horizontal" Margin="5,5,5,5" HorizontalAlignment="Center">
+            <Button Name="SyncProfilesMenu_Btn"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="Add new sync profile">
-                    <materialDesign:PackIcon Kind="PlusBox" Height="24" Width="24" />
+                        ToolTip="Sync profiles menu" Click="SyncProfilesMenu_Btn_Click">
+                <materialDesign:PackIcon Kind="ClipboardText" Height="24" Width="24" />
+            </Button>
+            <Button Name="ConnectionSettings_Btn"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        Margin="0 0 8 0" HorizontalAlignment="Left"
+                        ToolTip="Settings of network connection" Click="ConnectionSettings_Btn_Click">
+                    <materialDesign:PackIcon Kind="Wifi" Height="24" Width="24" />
                 </Button>
-                <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+                <Button Name="StartSyncService"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="Delete selected sync profiles">
-                    <materialDesign:PackIcon Kind="MinusBox" Height="24" Width="24" />
+                        ToolTip="Start sync service for selected profiles" Click="StartSyncService_Click">
+                    <materialDesign:PackIcon Kind="Sync" Height="24" Width="24" />
                 </Button>
-                <Button Style="{StaticResource MaterialDesignFloatingActionButton}"
+            <Button     Name="StopSyncService"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="Settings of selected sync profile">
-                    <materialDesign:PackIcon Kind="Settings" Height="24" Width="24" />
+                        ToolTip="Stop sync service for selected profiles" Click="StopSyncService_Click">
+                    <materialDesign:PackIcon Kind="SyncOff" Height="24" Width="24" />
+                </Button>
+                <Button Name="Info"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        Margin="0 0 8 0" HorizontalAlignment="Left"
+                        ToolTip="About us" Click="Info_Click">
+                    <materialDesign:PackIcon Kind="Information" Height="24" Width="24" />
                 </Button>
             </StackPanel>
-            <Label x:Name="label" Content="SYNC PROFILES MENU" HorizontalAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" Width="185" FontSize="16" TextOptions.TextFormattingMode="Display" Controls:ControlsHelper.ContentCharacterCasing="Lower" FontFamily="Segoe UI Black"/>
         </Grid>
-        <ListView x:Name="Profiles_Listview" BorderThickness="1" HorizontalAlignment="Center" Height="120" Margin="5,129,5,-67" VerticalAlignment="Top" Width="370" Grid.Row="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="PROFILE NAME" Width="105"/>
-                    <GridViewColumn Header="LOCAL STATUS" Width="100"/>
-                    <GridViewColumn Header="LAST SYNCHRONISATION" DisplayMemberBinding="{Binding path}" Width="165"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
-        <Grid Margin="10,-9,-10,10" Grid.RowSpan="2" />
-    </Grid>
 </Controls:MetroWindow>
