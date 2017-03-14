@@ -1,0 +1,33 @@
+﻿<Controls:MetroWindow x:Class="NetSync_WinDesktop.SyncProfilesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetSync_WinDesktop"
+        mc:Ignorable="d"
+        Icon="C:\Users\kadyr\Desktop\Диплом\NetSync_WinDesktop\Drawable\logo.ico"
+        ShowIconOnTitleBar="False"
+        Title="SyncProfilesWindow" Height="350" Width="420" ResizeMode="CanMinimize">
+    <Control.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Control.Resources>
+    <Grid>
+        <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10,96,-10,-64">ListView.GridView</TextBlock>
+        <ListView ItemsSource="{Binding Items1}" Margin="0,145,0,26" Height="150">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Code}" Header="Profile name" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Folder path" Width=" 200" />
+                    <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Last sync" Width="100" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Controls:MetroWindow>
