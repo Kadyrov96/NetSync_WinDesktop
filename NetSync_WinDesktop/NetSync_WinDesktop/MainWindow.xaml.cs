@@ -19,7 +19,8 @@ namespace NetSync_WinDesktop
 
         private void ConnectionSettings_Btn_Click(object sender, RoutedEventArgs e)
         {
-
+            var form = new NetSettingsWindows();
+            form.ShowDialog();
         }
 
         private void StartSyncService_Click(object sender, RoutedEventArgs e)
@@ -39,7 +40,8 @@ namespace NetSync_WinDesktop
 
         private void SyncProfilesMenu_Btn_Click(object sender, RoutedEventArgs e)
         {
-
+            var form = new SyncProfilesWindow();
+            form.ShowDialog();
         }
     }
 }
