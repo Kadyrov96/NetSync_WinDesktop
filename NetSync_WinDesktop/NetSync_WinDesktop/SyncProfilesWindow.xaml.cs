@@ -22,6 +22,7 @@ namespace NetSync_WinDesktop
         public SyncProfilesWindow()
         {
             InitializeComponent();
+
             double screenHeight = SystemParameters.FullPrimaryScreenHeight;
             double screenWidth = SystemParameters.FullPrimaryScreenWidth;
             Top = (screenHeight - Height) / 2;
