@@ -53,19 +53,15 @@ namespace NetSync_WinDesktop
             switch (remote_list.keys[_remoteIndex])
             {
                 case 0:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageEmpty.Source, imageOk.Source, 140));
                     remote_list.RemoveAt(_remoteIndex);
                     break;
                 case 1:
-                    //listView1.Items.Add(new FileItem(syncDirPath+localNamesList[i], imageImport.Source, imageWait.Source, 140));
-                    //download_count++;
                     downloadList.Add(remote_list.names[_remoteIndex]);
                     remote_list.RemoveAt(_remoteIndex);
                     break;
                 case 2:
                     break;
                 case 3:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageDel.Source, imageWait.Source, 140));
                     localDelList.Add(local_list.names[_localIndex]);
                     remote_list.RemoveAt(_remoteIndex);
                     break;
@@ -77,18 +73,13 @@ namespace NetSync_WinDesktop
             switch (remote_list.keys[_remoteIndex])
             {
                 case 0:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageExport.Source, imageWait.Source, 140));
                     uploadList.Add(local_list.names[_localIndex]);
                     remote_list.RemoveAt(_remoteIndex);
                     break;
                 case 1:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageEr.Source, imageWait.Source, 140));
-                    break;
                 case 2:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageEr.Source, imageWait.Source, 140));
                     break;
                 case 3:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageDel.Source, imageWait.Source, 140));
                     localDelList.Add(local_list.names[_localIndex]);
                     remote_list.RemoveAt(_remoteIndex);
                     break;
@@ -100,18 +91,13 @@ namespace NetSync_WinDesktop
             switch (remote_list.keys[_remoteIndex])
             {
                 case 0:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageDel.Source, imageWait.Source, 140));
                     remoteDelList.Add(local_list.names[_localIndex]);
                     remote_list.RemoveAt(_remoteIndex);
                     break;
                 case 1:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageEr.Source, imageWait.Source, 140));
-                    break;
                 case 2:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageEr.Source, imageWait.Source, 140));
                     break;
                 case 3:
-                    //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageEmpty.Source, imageOk.Source, 140));
                     remote_list.RemoveAt(_remoteIndex);
                     break;
             }
