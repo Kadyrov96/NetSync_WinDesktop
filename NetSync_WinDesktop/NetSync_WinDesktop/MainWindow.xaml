@@ -7,6 +7,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
+        BorderThickness="0" 
+        GlowBrush="Black"   
         Icon="C:\Users\kadyr\Desktop\Диплом\NetSync_WinDesktop\Drawable\logo.ico"
         ShowIconOnTitleBar="False"
         Title="NETSYNC FOR WIN_DESKTOP" Height="90" Width="280" ResizeMode="CanMinimize">
