@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
+using System.Collections.Generic;
 
 namespace NetSync_WinDesktop
 {
@@ -7,9 +9,16 @@ namespace NetSync_WinDesktop
     /// </summary>
     public partial class MainWindow
     {
+        private Thread thread;
+        private SSL_Server sslServer;
         public MainWindow()
         {
             InitializeComponent();
+
+            sslServer = new SSL_Server();
+            thread = new Thread(sslServer.RunServer);
+            thread.Start();
+
             double screenHeight = SystemParameters.FullPrimaryScreenHeight;
             double screenWidth = SystemParameters.FullPrimaryScreenWidth;
             Top = (screenHeight - Height) / 2;
@@ -19,13 +28,18 @@ namespace NetSync_WinDesktop
 
         private void ConnectionSettings_Btn_Click(object sender, RoutedEventArgs e)
         {
-            var form = new NetSettingsWindows();
-            form.ShowDialog();
+            var connectSettingsWindow = new NetSettingsWindows();
+            connectSettingsWindow.ShowDialog();
         }
 
         private void StartSyncService_Click(object sender, RoutedEventArgs e)
         {
-
+            /*
+            if(!thread.IsAlive)
+            {
+                thread.Start();
+            }
+            */
         }
 
         private void StopSyncService_Click(object sender, RoutedEventArgs e)
@@ -40,8 +54,8 @@ namespace NetSync_WinDesktop
 
         private void SyncProfilesMenu_Btn_Click(object sender, RoutedEventArgs e)
         {
-            var form = new SyncProfilesWindow();
-            form.ShowDialog();
+            var SyncProfilesWindow = new SyncProfilesWindow();
+            SyncProfilesWindow.ShowDialog();
         }
     }
 }
