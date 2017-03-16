@@ -27,7 +27,6 @@ namespace NetSync_WinDesktop
             SSL_Stream = _SSL_Stream;
             bufSize = 2048;
         }
-
         void IStreamHandler.ReceiveData(string savingFolderPath)
         {
             if (SSL_Stream.CanRead)
@@ -79,6 +78,26 @@ namespace NetSync_WinDesktop
                 sendBuffer = File.ReadAllBytes(filePath);
                 SSL_Stream.Write(sendBuffer, 0, sendBuffer.Length);
             }
+        }
+
+        string IStreamHandler.ReceiveString()
+        {
+            throw new NotImplementedException();
+        }
+
+        int IStreamHandler.ReceiveNum()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IStreamHandler.SendString()
+        {
+            throw new NotImplementedException();
+        }
+
+        void IStreamHandler.SendNum()
+        {
+            throw new NotImplementedException();
         }
     }
 }
