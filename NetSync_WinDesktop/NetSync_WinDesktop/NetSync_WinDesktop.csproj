@@ -72,6 +72,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientHandler.cs" />
     <Compile Include="NetSettingsWindows.xaml.cs">
       <DependentUpon>NetSettingsWindows.xaml</DependentUpon>
     </Compile>
