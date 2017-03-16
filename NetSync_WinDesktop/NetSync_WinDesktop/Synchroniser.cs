@@ -224,7 +224,7 @@ namespace NetSync_WinDesktop
                 local_list.AddRecord(file.elementName, file.modificationFlag);
         }
 
-        public void CompareDevicesSyncData()
+        public string CompareDevicesSyncData()
         {
             //Searching for remote syncDataStore file
             string[] searchResults = Directory.GetFiles(Directory.GetCurrentDirectory(), @"_rem.txt", SearchOption.AllDirectories);
@@ -253,10 +253,14 @@ namespace NetSync_WinDesktop
             {
                 System.Windows.Forms.MessageBox.Show("Файл с удаленного устройства не найден");
             }
+
+            CreateExchangeFile();
+
+            return syncDataStoreFullPath + "_configure" + @".txt";
         }
 
         //Create and fill configure file, which includes data about files, that have to be downloaded or deleted
-        public void CreateExchangeFile()
+        private void CreateExchangeFile()
         {
             folderToSync.CreateServiceFile(syncDataStoreFullPath + "_configure" + @".txt");
             StreamWriter configWriter = new StreamWriter(syncDataStoreFullPath + "_configure" + @".txt");
