@@ -12,7 +12,14 @@ namespace NetSync_WinDesktop
         {
             folderElementsList = new List<string>();
         }
-        
+
+        public FolderHandler(string _folderPath)
+        {
+            folderElementsList = new List<string>();
+            FolderPath = _folderPath;
+            FolderElements = Directory.GetFileSystemEntries(FolderPath);
+        }
+
         private string folderPath;
         public string FolderPath
         {
