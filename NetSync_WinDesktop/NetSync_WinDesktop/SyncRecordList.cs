@@ -4,18 +4,7 @@ namespace NetSync_WinDesktop
 {
     class SyncRecordList
     {
-        private int count;
-        public int Count
-        {
-            private set
-            {
-                count = names.Count;
-            }
-            get
-            {
-                return count;
-            }
-        }
+        public int Count { get; private set; }
         public List<string> names;
         public List<int> keys;
         public SyncRecordList()
