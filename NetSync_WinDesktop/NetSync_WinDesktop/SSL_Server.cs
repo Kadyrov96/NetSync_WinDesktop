@@ -17,7 +17,7 @@ namespace NetSync_WinDesktop
         public SSL_Server()
         {
             string host = Dns.GetHostName();
-            serverCertificate = new X509Certificate2(@"C:\Users\Admin\Desktop\123.pfx", "vbhs456");
+            //serverCertificate = new X509Certificate2(@"C:\Users\Admin\Desktop\123.pfx", "vbhs456");
             listener = new TcpListener(Dns.GetHostEntry(host).AddressList[0], 816);
         }
         internal void RunServer()
