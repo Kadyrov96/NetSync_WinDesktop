@@ -19,53 +19,21 @@ namespace NetSync_WinDesktop
             FolderPath = _folderPath;
             FolderElements = Directory.GetFileSystemEntries(FolderPath);
         }
-
-        private string folderPath;
-        public string FolderPath
-        {
-            private set
-            {
-                folderPath = value;
-            }
-            get
-            {
-                return folderPath;
-            }
-        }
-
-        private string[] folderElements;
-        public string[] FolderElements
-        {
-            private set
-            {
-                folderElements = value;
-            }
-            get
-            {
-                return folderElements;
-            }
-        }
-
+        public string FolderPath { get; private set; }
+        public string[] FolderElements { get; private set; }
         public void SelectFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 FolderPath = folderBrowserDialog.SelectedPath;
-                FolderElements = Directory.GetFileSystemEntries(folderPath);
+                FolderElements = Directory.GetFileSystemEntries(FolderPath);
             }
         }
         
         public bool IsFolderEmpty()
         {
-            if (folderElements.Length == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return FolderElements.Length == 0;
         }
 
         public void CreateServiceFile(string _full_file_path)
