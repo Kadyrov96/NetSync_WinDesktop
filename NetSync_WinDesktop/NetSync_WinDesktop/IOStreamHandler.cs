@@ -8,19 +8,7 @@ namespace NetSync_WinDesktop
     class IOStreamHandler: IStreamHandler
     {
         private static int bufSize;
-        private SslStream ssl_stream;
-
-        public SslStream SSL_Stream
-        {
-            get
-            {
-                return ssl_stream;
-            }
-            private set
-            {
-                ssl_stream = value;
-            }
-        }
+        public SslStream SSL_Stream { get; private set; }
 
         public IOStreamHandler(SslStream _SSL_Stream)
         {
