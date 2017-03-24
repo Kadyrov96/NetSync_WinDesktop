@@ -45,7 +45,7 @@ namespace NetSync_WinDesktop
         private void AddLocalSyncElements(string elemName, int elemFlag)
         {
             local_folderToSyncElements.Add(
-                new FileDescript { elementName = elemName, modificationFlag = elemFlag });
+                new FileDescript { ElementName = elemName, ModificationFlag = elemFlag });
         }
 
         private void SwitchIfNotChanged(int _remoteIndex, int _localIndex)
@@ -221,7 +221,7 @@ namespace NetSync_WinDesktop
             }
 
             foreach (var file in local_folderToSyncElements)
-                local_list.AddRecord(file.elementName, file.modificationFlag);
+                local_list.AddRecord(file.ElementName, file.ModificationFlag);
         }
 
         public string CompareDevicesSyncData()
