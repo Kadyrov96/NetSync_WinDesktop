@@ -7,6 +7,8 @@ namespace NetSync_WinDesktop
     class FolderHandler
     {
         private List<string> folderElementsList;
+        public string FolderPath { get; private set; }
+        public string[] FolderElements { get; private set; }
 
         public FolderHandler()
         {
@@ -19,8 +21,6 @@ namespace NetSync_WinDesktop
             FolderPath = _folderPath;
             FolderElements = Directory.GetFileSystemEntries(FolderPath);
         }
-        public string FolderPath { get; private set; }
-        public string[] FolderElements { get; private set; }
         public void SelectFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
