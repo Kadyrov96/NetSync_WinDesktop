@@ -4,9 +4,11 @@ namespace NetSync_WinDesktop
 {
     class SyncRecordList
     {
-        public int Count { get; private set; }
         public List<string> names;
         public List<int> keys;
+
+        public int Count { get; private set; }
+
         public SyncRecordList()
         {
             names = new List<string>();
