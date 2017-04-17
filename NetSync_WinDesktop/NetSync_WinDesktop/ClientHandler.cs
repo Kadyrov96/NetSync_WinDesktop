@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
 using System.Net.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace NetSync_WinDesktop
 {
     class ClientHandler
     {
-        private TcpClient client;
-        private IStreamHandler streamHandler;
-        private string clientProfile;
-        private Synchroniser syncService;
+        TcpClient client;
+        IStreamHandler streamHandler;
+        SyncProfile clientProfile;
+        Synchroniser syncService;
 
         ClientHandler(TcpClient _tcpClient)
         {
@@ -24,15 +19,18 @@ namespace NetSync_WinDesktop
 
         void ServeClient()
         {
-            clientProfile = streamHandler.ReceiveString();
+            clientProfile.ProfileName = streamHandler.ReceiveString();
 
-            syncService = new Synchroniser(new FolderHandler(clientProfile));
-            syncService.CheckLocalChanges();
+            if (MainWindow.syncProfilesList.Contains(clientProfile.ProfileName))
+            {
+                syncService = new Synchroniser(new FolderHandler(clientProfile.ProfileSyncFolderPath));
+                syncService.CheckLocalChanges();
 
-            streamHandler.ReceiveData(Directory.GetCurrentDirectory());
-            streamHandler.SendData(syncService.CompareDevicesSyncData());
+                streamHandler.ReceiveData(Directory.GetCurrentDirectory());
+                streamHandler.SendData(syncService.CompareDevicesSyncData());
 
-            //TO DO - отправка и прием файлов // 
+                //TO DO - отправка и прием файлов // 
+            }
         }
 
     }
