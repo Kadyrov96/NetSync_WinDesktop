@@ -11,7 +11,7 @@
         ShowIconOnTitleBar="False"
         Title="ADDING NEW SYNC PROFILE" Height="210" Width="263" ResizeMode="CanMinimize">
     <Grid Margin="0,0,0,-3" HorizontalAlignment="Left" Width="213">
-        <TextBox Name="hostname" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16"
+        <TextBox x:Name="syncProfileName" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16"
                  Margin="10,0,10,135">
             <materialDesign:HintAssist.Hint>
                 <StackPanel Orientation="Horizontal" Margin="-2 0 0 0">
@@ -30,21 +30,21 @@
             </materialDesign:HintAssist.Hint>
         </TextBox>
         <Button Name="SelectFolder_Btn"
-                        Margin="208,70,-26,85" HorizontalAlignment="Left"
-                        ToolTip="select folder to bind to sync profile" Width="31">
+                        Margin="208,80,-26,75" HorizontalAlignment="Left"
+                        ToolTip="select folder to bind to sync profile" Width="31" Click="SelectFolder_Btn_Click">
             <materialDesign:PackIcon Kind="Folder" Height="18" Width="18" />
         </Button>
         <StackPanel Orientation="Horizontal" Margin="75,115,39,10" HorizontalAlignment="Center" Width="99">
             <Button Name="SyncProfilesMenu_Btn"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="OK">
+                        ToolTip="OK" Click="SyncProfilesMenu_Btn_Click">
                 <materialDesign:PackIcon Kind="Check" Height="24" Width="24" />
             </Button>
             <Button     x:Name="StopSyncService"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                         Margin="0,8,8,7" HorizontalAlignment="Left"
-                        ToolTip="Decline">
+                        ToolTip="Decline" Click="StopSyncService_Click">
                 <materialDesign:PackIcon Kind="BackupRestore" Height="24" Width="24" />
             </Button>
         </StackPanel>
