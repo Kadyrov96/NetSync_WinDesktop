@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NetSync_WinDesktop
 {
@@ -22,11 +11,33 @@ namespace NetSync_WinDesktop
         public SyncProfilesWindow()
         {
             InitializeComponent();
+            if(File.Exists(Directory.GetCurrentDirectory() + @"\profiles.dat"))
+            {
+                SyncProfilesHandler.LoadProfiles();
+                foreach (var item in SyncProfilesHandler.AvailableProfilesList)
+                {
+                    profilesListView.Items.Add(item);
+                }
+            }
+
 
             double screenHeight = SystemParameters.FullPrimaryScreenHeight;
             double screenWidth = SystemParameters.FullPrimaryScreenWidth;
             Top = (screenHeight - Height) / 2;
             Left = (screenWidth - Width) / 2;
+        }
+
+        private void SyncProfilesMenu_Btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewProfile_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            var addNewProfileWindow = new ProfileAddingWindow();
+            addNewProfileWindow.ShowDialog();
+
+            //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageDel.Source, imageWait.Source, 140));
         }
     }
 }
