@@ -7,9 +7,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
-        Icon="C:\Users\kadyr\Desktop\Диплом\NetSync_WinDesktop\Drawable\logo.ico"
+        Icon="E:\NetSync_WinDesktop\NetSync_WinDesktop\Drawable\logo.ico"
         ShowIconOnTitleBar="False"
-        Title="SyncProfilesWindow" Height="350" Width="420" ResizeMode="CanMinimize">
+        Title="SyncProfilesWindow" Height="341" Width="420" ResizeMode="CanMinimize">
     <Control.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,8 +19,33 @@
         </ResourceDictionary>
     </Control.Resources>
     <Grid>
-        <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="10,96,-10,-64">ListView.GridView</TextBlock>
-        <ListView ItemsSource="{Binding Items1}" Margin="0,145,0,26" Height="150">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="14*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="39,0,51,0" HorizontalAlignment="Center" Width="334" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" Margin="95,10,73,250" HorizontalAlignment="Center" Width="166">
+                <Button Name="AddNewProfile_Btn1"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        Margin="0 0 8 0" HorizontalAlignment="Left"
+                        ToolTip="Sync profiles menu">
+                    <materialDesign:PackIcon Kind="CheckAll" Height="24" Width="24" />
+                </Button>
+                <Button Name="AddNewProfile_Btn"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                        Margin="0 0 8 0" HorizontalAlignment="Left"
+                        ToolTip="Add new sync profile" Click="AddNewProfile_Btn_Click">
+                    <materialDesign:PackIcon Kind="PlusCircle" Height="24" Width="24" />
+                </Button>
+                <Button     Name="StopSyncService"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Margin="0,3,8,3" HorizontalAlignment="Left"
+                        ToolTip="Stop sync service for selected profiles">
+                    <materialDesign:PackIcon Kind="MinusCircle" Height="24" Width="24" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <ListView x:Name="profilesListView" ItemsSource="{Binding Items1}" Margin="0,70,0,102" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding Code}" Header="Profile name" Width="120"/>
