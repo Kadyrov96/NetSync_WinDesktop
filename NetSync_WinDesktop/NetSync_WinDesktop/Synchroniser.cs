@@ -7,23 +7,23 @@ namespace NetSync_WinDesktop
     class Synchroniser
     {
         //Synchronizing folder object.
-        private FolderHandler folderToSync;
+        FolderHandler folderToSync;
         //Path of the file, that includes data of the last synchronization: name of the file and its hash.
         internal string syncDataStoreFullPath;
-        private List<string> syncDataStoreRecords_List;
+        List<string> syncDataStoreRecords_List;
 
-        private List<FileDescript> local_folderToSyncElements;
+        List<FileDescript> local_folderToSyncElements;
 
         //results of checking folders' statements to the hashes on each devices
-        private SyncRecordList local_list;
-        private SyncRecordList remote_list;
+        SyncRecordList local_list;
+        SyncRecordList remote_list;
 
         #region Result names' lists of files, that must be deleted or downloaded to each device
-        private List<string> localDelList;
-        private List<string> remoteDelList;
+        List<string> localDelList;
+        List<string> remoteDelList;
 
-        private List<string> uploadList;
-        private List<string> downloadList;
+        List<string> uploadList;
+        List<string> downloadList;
         #endregion
 
         public Synchroniser(FolderHandler _folderToSync)
@@ -45,7 +45,7 @@ namespace NetSync_WinDesktop
         private void AddLocalSyncElements(string elemName, int elemFlag)
         {
             local_folderToSyncElements.Add(
-                new FileDescript { ElementName = elemName, ModificationFlag = elemFlag });
+                new FileDescript { elementName = elemName, modificationFlag = elemFlag });
         }
 
         private void SwitchIfNotChanged(int _remoteIndex, int _localIndex)
@@ -221,7 +221,7 @@ namespace NetSync_WinDesktop
             }
 
             foreach (var file in local_folderToSyncElements)
-                local_list.AddRecord(file.ElementName, file.ModificationFlag);
+                local_list.AddRecord(file.elementName, file.modificationFlag);
         }
 
         public string CompareDevicesSyncData()
