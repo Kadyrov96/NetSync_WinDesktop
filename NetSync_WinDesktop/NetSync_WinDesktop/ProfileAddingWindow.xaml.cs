@@ -37,7 +37,7 @@ namespace NetSync_WinDesktop
 
             syncService = new Synchroniser(folderHandler);
             syncService.CreateSyncDataStore();
-
+            //ProfileAddingWindow.profilesListView.Items.Refresh();
             Close();
         }
     }
