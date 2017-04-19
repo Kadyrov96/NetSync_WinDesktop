@@ -9,6 +9,7 @@ namespace NetSync_WinDesktop
     /// </summary>
     public partial class MainWindow
     {
+        public static List<string> syncProfilesList;
         private Thread thread;
         private SSL_Server sslServer;
         public MainWindow()
