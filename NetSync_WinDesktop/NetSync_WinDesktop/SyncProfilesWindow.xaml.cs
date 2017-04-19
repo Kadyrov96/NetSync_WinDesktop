@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace NetSync_WinDesktop
 {
@@ -36,6 +38,8 @@ namespace NetSync_WinDesktop
         {
             var addNewProfileWindow = new ProfileAddingWindow();
             addNewProfileWindow.ShowDialog();
+            //Application.Current.Windows.Contain(ProfileAddingWindow);
+            //this.profilesListView
 
             //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageDel.Source, imageWait.Source, 140));
         }
