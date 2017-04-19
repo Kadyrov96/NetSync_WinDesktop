@@ -45,7 +45,7 @@ namespace NetSync_WinDesktop
         private void AddLocalSyncElements(string elemName, int elemFlag)
         {
             local_folderToSyncElements.Add(
-                new FileDescript { elementName = elemName, modificationFlag = elemFlag });
+                new FileDescript { ElementName = elemName, ModificationFlag = elemFlag });
         }
 
         private void SwitchIfNotChanged(int _remoteIndex, int _localIndex)
@@ -221,7 +221,7 @@ namespace NetSync_WinDesktop
             }
 
             foreach (var file in local_folderToSyncElements)
-                local_list.AddRecord(file.elementName, file.modificationFlag);
+                local_list.AddRecord(file.ElementName, file.ModificationFlag);
         }
 
         public string CompareDevicesSyncData()
@@ -235,18 +235,12 @@ namespace NetSync_WinDesktop
                 {
                     int searchIndex = remote_list.names.BinarySearch(local_list.names[localIndex]);
                     if (searchIndex >= 0)
-                    {
                         SwitchOnKeys(searchIndex, localIndex);
-                    }
-                    else
-                    {
-                        //listView1.Items.Add(new FileItem(syncDirPath + localNamesList[i], imageExport.Source, imageWait.Source, 140));
+                    else        
                         uploadList.Add(local_list.names[localIndex]);
-                    }
                 }
 
                 foreach (var i in remote_list.names)
-                    //listView1.Items.Add(new FileItem(i, imageImport.Source, imageWait.Source, 140));
                     downloadList.Add(i);
             }
             else
