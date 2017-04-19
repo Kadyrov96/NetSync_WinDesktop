@@ -7,7 +7,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
-        Icon="E:\NetSync_WinDesktop\NetSync_WinDesktop\Drawable\logo.ico"
         ShowIconOnTitleBar="False"
         Title="ADDING NEW SYNC PROFILE" Height="210" Width="263" ResizeMode="CanMinimize">
     <Grid Margin="0,0,0,-3" HorizontalAlignment="Left" Width="213">
