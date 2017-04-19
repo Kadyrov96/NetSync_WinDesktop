@@ -7,7 +7,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
-        Icon="E:\NetSync_WinDesktop\NetSync_WinDesktop\Drawable\logo.ico"
         ShowIconOnTitleBar="False"
         Title="SyncProfilesWindow" Height="341" Width="420" ResizeMode="CanMinimize">
     <Control.Resources>
@@ -45,12 +44,12 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ListView x:Name="profilesListView" ItemsSource="{Binding Items1}" Margin="0,70,0,102" Grid.ColumnSpan="2">
+        <ListView x:Name="profilesListView" Margin="0,70,0,102" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Code}" Header="Profile name" Width="120"/>
-                    <GridViewColumn DisplayMemberBinding="{Binding Name}" Header="Folder path" Width=" 200" />
-                    <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Last sync" Width="100" />
+                    <GridViewColumn DisplayMemberBinding="{Binding ProfileName}" Header="Profile name" Width="120"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding ProfileSyncFolderPath}" Header="Folder path" Width=" 200" />
+                    <GridViewColumn DisplayMemberBinding="{Binding SyncDateTime}" Header="Last sync" Width="100" />
                 </GridView>
             </ListView.View>
         </ListView>
