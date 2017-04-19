@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Collections.Generic;
 
 namespace NetSync_WinDesktop
 {
@@ -29,56 +30,20 @@ namespace NetSync_WinDesktop
             AvailableProfilesList = new List<SyncProfile>();
             foreach (var profile in syncProfilesArray)
             {
-                char delimiter = '|';
-                string[] substrings = profile.Split(delimiter);
+                string[] substrings = profile.Split('|');
                 AvailableProfilesList.Add(new SyncProfile(substrings[0], substrings[1], substrings[2]));
             }
         }
 
         static public void SaveProfile(SyncProfile profile)
         {
-            StreamWriter profileWriter;
-            if (File.Exists(syncProfilesStore))
-            {
-                profileWriter = new StreamWriter(syncProfilesStore);
-                profileWriter.WriteLine(profile.ProfileName + "|" +
-                    profile.ProfileSyncFolderPath + "|" + profile.SyncDateTime);
-            }
+            string profileInfo = profile.ProfileName + "|" +
+                    profile.ProfileSyncFolderPath + "|" + profile.SyncDateTime + Environment.NewLine;
+
+            if (File.Exists(syncProfilesStore))                
+                File.AppendAllText(syncProfilesStore, profileInfo, Encoding.UTF8);
             else
-            {
-                FileStream synProfilesStoreCreator = File.Create(syncProfilesStore);
-                synProfilesStoreCreator.Close();
-
-                profileWriter = new StreamWriter(syncProfilesStore);
-                profileWriter.WriteLine(profile.ProfileName + "|" +
-                    profile.ProfileSyncFolderPath + "|" + profile.SyncDateTime);
-            }
-            profileWriter.Close();
-            profileWriter.Dispose();
-        }
-
-         void SaveProfiles()
-        {
-            StreamWriter profileWriter;
-            if (File.Exists(syncProfilesStore))
-            {
-                profileWriter = new StreamWriter(syncProfilesStore);
-
-                foreach (var profile in AvailableProfilesList)
-                    profileWriter.WriteLine(profile.ProfileName + "|" +
-                        profile.ProfileSyncFolderPath + "|" + profile.SyncDateTime);
-            }
-            else
-            {
-                FileStream synProfilesStoreCreator = File.Create(syncProfilesStore);
-                profileWriter = new StreamWriter(syncProfilesStore);
-
-                foreach (var profile in AvailableProfilesList)
-                    profileWriter.WriteLine(profile.ProfileName + "|" +
-                        profile.ProfileSyncFolderPath + "|" + profile.SyncDateTime);
-            }
-            profileWriter.Close();
-            profileWriter.Dispose();
-        }
+                File.WriteAllText(syncProfilesStore, profileInfo, Encoding.UTF8);
+        }  
     }
 }
