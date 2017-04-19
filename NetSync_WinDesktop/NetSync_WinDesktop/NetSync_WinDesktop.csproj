@@ -76,8 +76,13 @@
     <Compile Include="NetSettingsWindows.xaml.cs">
       <DependentUpon>NetSettingsWindows.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ProfileAddingWindow.xaml.cs">
+      <DependentUpon>ProfileAddingWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SSL_Server.cs" />
     <Compile Include="Synchroniser.cs" />
+    <Compile Include="SyncProfile.cs" />
+    <Compile Include="SyncProfilesHandler.cs" />
     <Compile Include="SyncProfilesWindow.xaml.cs">
       <DependentUpon>SyncProfilesWindow.xaml</DependentUpon>
     </Compile>
@@ -100,6 +105,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="NetSettingsWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProfileAddingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
