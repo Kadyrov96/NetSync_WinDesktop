@@ -5,14 +5,31 @@ using System.Net.Security;
 using System.Security.Authentication;
 using System.Security.Cryptography.X509Certificates;
 
+using System.Collections.Generic;
+
 namespace NetSync_WinDesktop
 {
     public class SSL_Server
     {
+
+        /* //TO DO// Многопользовательский сервер - несколько потоков или несколько TCP клиентов? Решить вопрос */
         private SslStream sslStream;
-        private TcpClient client;
+        private List<TcpClient> tcpClientsList;
+        public List<TcpClient> TcpClientsList
+        {
+            get
+            {
+                return tcpClientsList;
+            }
+
+            private set
+            {
+                tcpClientsList = value;
+            }
+        }
+
         private TcpListener listener;
-        private X509Certificate2 serverCertificate;
+        //private X509Certificate2 serverCertificate;
 
         public SSL_Server()
         {
@@ -24,14 +41,16 @@ namespace NetSync_WinDesktop
         {
             listener.Start();
             System.Windows.MessageBox.Show("waiting");
-            client = listener.AcceptTcpClient();
-            if (client.Connected)
+            tcpClientsList.Add(listener.AcceptTcpClient());
+            //client = listener.AcceptTcpClient();
+            TcpClient lastClient = tcpClientsList[tcpClientsList.Count];
+            if (lastClient.Connected)
             {
                 System.Windows.MessageBox.Show("Client connected");
-                sslStream = new SslStream(client.GetStream(), false);
+                sslStream = new SslStream(lastClient.GetStream(), false);
                 try
                 {
-                    sslStream.AuthenticateAsServer(serverCertificate, false, SslProtocols.Tls12, true);
+                    //sslStream.AuthenticateAsServer(serverCertificate, false, SslProtocols.Tls12, true);
                 }
                 catch (AuthenticationException e)
                 {
@@ -43,15 +62,23 @@ namespace NetSync_WinDesktop
                     }
                     System.Windows.MessageBox.Show("Authentication failed - closing the connection.");
                     sslStream.Close();
-                    client.Close();
+                    lastClient.Close();
                 }
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("still empty");
             }
         }
 
         internal void StopServer()
         {
             sslStream.Close();
-            client.Client.Dispose();
+            foreach (var client in tcpClientsList)
+            {
+                client.Client.Dispose();
+            }
+            
             listener.Stop();
         }
     }
