@@ -4,6 +4,9 @@ using System;
 
 namespace NetSync_WinDesktop
 {
+    /// <summary>
+    /// Provides methods to synchronize local and remote folders.
+    /// </summary>
     class Synchroniser
     {
         //Synchronizing folder object.
@@ -12,7 +15,7 @@ namespace NetSync_WinDesktop
         internal string syncDataStoreFullPath;
         List<string> syncDataStoreRecords_List;
 
-        List<FileDescript> local_folderToSyncElements;
+        //List<FileDescript> local_folderToSyncElements;
 
         //results of checking folders' statements to the hashes on each devices
         SyncRecordList local_list;
@@ -29,8 +32,9 @@ namespace NetSync_WinDesktop
         public Synchroniser(FolderHandler _folderToSync)
         {
             folderToSync = _folderToSync;
-            syncDataStoreFullPath = Directory.GetCurrentDirectory() + Hasher.GetStringHash(folderToSync.FolderPath);
-            local_folderToSyncElements = new List<FileDescript>();
+            syncDataStoreFullPath = Directory.GetCurrentDirectory() + @"\" +
+                Hasher.GetStringHash(folderToSync.FolderPath);
+            //local_folderToSyncElements = new List<FileDescript>();
 
             local_list = new SyncRecordList();
             remote_list = new SyncRecordList();
@@ -41,13 +45,20 @@ namespace NetSync_WinDesktop
             downloadList = new List<string>();
         }
 
-        //Adds name and key into the storage of local folder's files
+        /// <summary>
+        /// Adds name and key into local folder's statement list.
+        /// </summary>
         private void AddLocalSyncElements(string elemName, int elemFlag)
         {
-            local_folderToSyncElements.Add(
-                new FileDescript { ElementName = elemName, ModificationFlag = elemFlag });
+            local_list.AddRecord(elemName, elemFlag);
+
+            //local_folderToSyncElements.Add(
+            //    new FileDescript { ElementName = elemName, ModificationFlag = elemFlag });
         }
 
+        /// <summary>
+        /// Makes the desicion in case when local file was not changed.
+        /// </summary>
         private void SwitchIfNotChanged(int _remoteIndex, int _localIndex)
         {
             switch (remote_list.keys[_remoteIndex])
@@ -68,6 +79,9 @@ namespace NetSync_WinDesktop
             }
         }
 
+        /// <summary>
+        /// Makes the desicion in case when local file was modified.
+        /// </summary>
         private void SwitchIfModified(int _remoteIndex, int _localIndex)
         {
             switch (remote_list.keys[_remoteIndex])
@@ -86,6 +100,9 @@ namespace NetSync_WinDesktop
             }
         }
 
+        /// <summary>
+        /// Makes the desicion in case when local file was deleted.
+        /// </summary>
         private void SwitchIfDeleted(int _remoteIndex, int _localIndex)
         {
             switch (remote_list.keys[_remoteIndex])
@@ -103,7 +120,9 @@ namespace NetSync_WinDesktop
             }
         }
 
-        //Makes desicion of actions with files that based on keys of local and remote files.
+        /// <summary>
+        /// Makes desicion of actions with files that based on keys of local and remote files.
+        /// </summary>
         private void SwitchOnKeys(int remoteIndex, int localIndex)
         {
             switch (local_list.keys[localIndex])
@@ -122,6 +141,9 @@ namespace NetSync_WinDesktop
             }
         }
 
+        /// <summary>
+        /// Reads the file that include names and modification keys of remote files.
+        /// </summary>
         private void ReadRemoteStateFile(string _dataStorage)
         {
             string[] remoteSyncData = File.ReadAllLines(_dataStorage);
@@ -133,35 +155,38 @@ namespace NetSync_WinDesktop
             }
         }
 
+        /// <summary>
+        /// Compares hashes of the current and the last session of synchronization.
+        /// </summary>
         private void CompareHashes()
         {
             //Two lists to temporary collect files' hashes and names of the last sync
-            List<string> tmpNamesList = new List<string>();
-            List<string> tmpHashList = new List<string>();
+            List<string> lastSyncNamesList = new List<string>();
+            List<string> lastSyncHashList = new List<string>();
 
             for (int i = 0; i < syncDataStoreRecords_List.Count; i++)
             {
-                tmpNamesList.Add(syncDataStoreRecords_List[i].Substring(0, syncDataStoreRecords_List[i].Length - 38));
-                tmpHashList.Add(syncDataStoreRecords_List[i].Substring(syncDataStoreRecords_List[i].Length - 32, 32));
+                lastSyncNamesList.Add(syncDataStoreRecords_List[i].Substring(0, syncDataStoreRecords_List[i].Length - 38));
+                lastSyncHashList.Add(syncDataStoreRecords_List[i].Substring(syncDataStoreRecords_List[i].Length - 32, 32));
             }
 
             for (int i = 0; i < syncDataStoreRecords_List.Count; i++)
             {
-                int searchIndex = tmpNamesList.BinarySearch(syncDataStoreRecords_List[i]);
+                int searchIndex = lastSyncNamesList.BinarySearch(syncDataStoreRecords_List[i]);
                 if (searchIndex >= 0)
                 {
-                    string readenHash = tmpHashList[searchIndex];
+                    string readenHash = lastSyncHashList[searchIndex];
                     if (Hasher.GetFileHash(folderToSync.FolderElements[i]) == readenHash)
                     {
                         AddLocalSyncElements(Path.GetFileName(syncDataStoreRecords_List[i]), 0);
-                        tmpNamesList.RemoveAt(searchIndex);
-                        tmpHashList.RemoveAt(searchIndex);
+                        lastSyncNamesList.RemoveAt(searchIndex);
+                        lastSyncHashList.RemoveAt(searchIndex);
                     }
                     else
                     {
                         AddLocalSyncElements(Path.GetFileName(syncDataStoreRecords_List[i]), 1);
-                        tmpNamesList.RemoveAt(searchIndex);
-                        tmpHashList.RemoveAt(searchIndex);
+                        lastSyncNamesList.RemoveAt(searchIndex);
+                        lastSyncHashList.RemoveAt(searchIndex);
                     }
                 }
                 else
@@ -169,16 +194,18 @@ namespace NetSync_WinDesktop
                     AddLocalSyncElements(Path.GetFileName(syncDataStoreRecords_List[i]), 2);
                 }
             }
-            foreach (var i in tmpNamesList)
+            foreach (var i in lastSyncNamesList)
                 AddLocalSyncElements(Path.GetFileName(i), 3);
 
-            tmpNamesList.Clear();
-            tmpHashList.Clear();
+            lastSyncNamesList.Clear();
+            lastSyncHashList.Clear();
         }
 
+        /// <summary>
+        /// Creates and fills the file that should include synchronization data of the concrete folder.
+        /// </summary>
         public void CreateSyncDataStore()
         {
-            //Creating and filling the file, that includes synchronization data of the concrete folder
             folderToSync.CreateServiceFile(syncDataStoreFullPath + @".dat");
             StreamWriter hashTableWriter = new StreamWriter(syncDataStoreFullPath + @".dat");
             for (int i = 0; i < folderToSync.FolderElements.Length; i++)
@@ -186,44 +213,53 @@ namespace NetSync_WinDesktop
                 hashTableWriter.WriteLine(folderToSync.FolderElements[i] + "***" + Hasher.GetFileHash(folderToSync.FolderElements[i]));
                 AddLocalSyncElements(Path.GetFileName(folderToSync.FolderElements[i]), 0);
             }
-            //System.Windows.MessageBox.Show("Full directory was succesfully synchronized with database");
             hashTableWriter.Close();
             hashTableWriter.Dispose();
         }
 
+        /// <summary>
+        /// Checks changes in synchronized folder.
+        /// </summary>
         public void CheckLocalChanges()
         {
-            string[] syncDataStoreRecords = File.ReadAllLines(syncDataStoreFullPath + @".dat");
-            syncDataStoreRecords_List = new List<string>(syncDataStoreRecords);
-
-            //DataStore file exists, but it is empty.
-            if (syncDataStoreRecords_List.Count == 0)
+            if(File.Exists(syncDataStoreFullPath + @".dat"))
             {
-                //Non-emptiness of the folder means that all included files were created
-                if (!(folderToSync.IsFolderEmpty()))
+                string[] syncDataStoreRecords = File.ReadAllLines(syncDataStoreFullPath + @".dat");
+                syncDataStoreRecords_List = new List<string>(syncDataStoreRecords);
+                //DataStore file exists, but it is empty.
+                if (syncDataStoreRecords_List.Count == 0)
                 {
-                    for (int i = 0; i < folderToSync.FolderElements.Length; i++)
-                        AddLocalSyncElements(Path.GetFileName(folderToSync.FolderElements[i]), 2);
-                }
-            }
-            else
-            {
-                //Checking: folder's emptiness automatically means that all files were deleted
-                if (folderToSync.IsFolderEmpty())
-                {
-                    for (int i = 0; i < syncDataStoreRecords.Length; i++)
-                        AddLocalSyncElements(syncDataStoreRecords[i].Substring(0, syncDataStoreRecords[i].Length - 38), 3);
+                    //Non-emptiness of the folder means that all included files were created
+                    if (!(folderToSync.IsFolderEmpty()))
+                    {
+                        for (int i = 0; i < folderToSync.FolderElements.Length; i++)
+                            AddLocalSyncElements(Path.GetFileName(folderToSync.FolderElements[i]), 2);
+                    }
                 }
                 else
                 {
-                    CompareHashes();
+                    //Checking: folder's emptiness automatically means that all files were deleted
+                    if (folderToSync.IsFolderEmpty())
+                    {
+                        for (int i = 0; i < syncDataStoreRecords.Length; i++)
+                            AddLocalSyncElements(syncDataStoreRecords[i].Substring(0, syncDataStoreRecords[i].Length - 38), 3);
+                    }
+                    else
+                    {
+                        CompareHashes();
+                    }
                 }
             }
-
-            foreach (var file in local_folderToSyncElements)
-                local_list.AddRecord(file.ElementName, file.ModificationFlag);
+            else
+                CreateSyncDataStore();
+            //foreach (var file in local_folderToSyncElements)
+            //    local_list.AddRecord(file.ElementName, file.ModificationFlag);
         }
 
+        /// <summary>
+        /// Compares synchronization data of local and remote folder
+        /// and get result lists of files that have to be downloaded or uploaded.
+        /// </summary>
         public string CompareDevicesSyncData()
         {
             //Searching for remote syncDataStore file
@@ -236,7 +272,7 @@ namespace NetSync_WinDesktop
                     int searchIndex = remote_list.names.BinarySearch(local_list.names[localIndex]);
                     if (searchIndex >= 0)
                         SwitchOnKeys(searchIndex, localIndex);
-                    else        
+                    else
                         uploadList.Add(local_list.names[localIndex]);
                 }
 
@@ -244,16 +280,16 @@ namespace NetSync_WinDesktop
                     downloadList.Add(i);
             }
             else
-            {
                 System.Windows.Forms.MessageBox.Show("Файл с удаленного устройства не найден");
-            }
 
             CreateExchangeFile();
-
             return syncDataStoreFullPath + "_configure" + @".txt";
         }
 
-        //Create and fill configure file, which includes data about files, that have to be downloaded or deleted
+        /// <summary>
+        /// Creates and fills configure file, 
+        /// which includes data about files, that have to be downloaded or deleted.
+        /// </summary>
         private void CreateExchangeFile()
         {
             folderToSync.CreateServiceFile(syncDataStoreFullPath + "_configure" + @".txt");
