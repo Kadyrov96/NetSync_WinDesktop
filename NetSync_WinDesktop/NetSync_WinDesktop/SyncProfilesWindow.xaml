@@ -8,7 +8,9 @@
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
         ShowIconOnTitleBar="False"
-        Title="SyncProfilesWindow" Height="341" Width="420" ResizeMode="CanMinimize">
+        BorderThickness="0" 
+        GlowBrush="Black"  
+        Title="SyncProfilesWindow" Height="245" Width="468" ResizeMode="CanMinimize">
     <Control.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -22,8 +24,8 @@
             <ColumnDefinition Width="14*"/>
             <ColumnDefinition Width="9*"/>
         </Grid.ColumnDefinitions>
-        <Grid Margin="39,0,51,0" HorizontalAlignment="Center" Width="334" Grid.ColumnSpan="2">
-            <StackPanel Orientation="Horizontal" Margin="95,10,73,250" HorizontalAlignment="Center" Width="166">
+        <Grid Margin="35,10,53,152" HorizontalAlignment="Center" Width="334" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal" Margin="95,0,94,0" HorizontalAlignment="Center" Width="145">
                 <Button Name="AddNewProfile_Btn1"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
@@ -36,20 +38,20 @@
                         ToolTip="Add new sync profile" Click="AddNewProfile_Btn_Click">
                     <materialDesign:PackIcon Kind="PlusCircle" Height="24" Width="24" />
                 </Button>
-                <Button     Name="StopSyncService"
+                <Button     Name="DeleteProfile"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                         Margin="0,3,8,3" HorizontalAlignment="Left"
-                        ToolTip="Stop sync service for selected profiles">
+                        ToolTip="Stop sync service for selected profiles" Click="DeleteProfile_Click">
                     <materialDesign:PackIcon Kind="MinusCircle" Height="24" Width="24" />
                 </Button>
             </StackPanel>
         </Grid>
-        <ListView x:Name="profilesListView" Margin="0,70,0,102" Grid.ColumnSpan="2">
+        <ListView x:Name="profilesListView" ItemsSource="{Binding profileList}" Margin="0,70,0,10" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn DisplayMemberBinding="{Binding ProfileName}" Header="Profile name" Width="120"/>
                     <GridViewColumn DisplayMemberBinding="{Binding ProfileSyncFolderPath}" Header="Folder path" Width=" 200" />
-                    <GridViewColumn DisplayMemberBinding="{Binding SyncDateTime}" Header="Last sync" Width="100" />
+                    <GridViewColumn DisplayMemberBinding="{Binding SyncDateTime}" Header="Last sync" Width="130" />
                 </GridView>
             </ListView.View>
         </ListView>
