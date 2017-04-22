@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetSync_WinDesktop
+﻿namespace NetSync_WinDesktop
 {
     class SyncProfile
     {
