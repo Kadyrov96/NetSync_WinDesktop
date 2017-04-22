@@ -8,6 +8,8 @@
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
         ShowIconOnTitleBar="False"
+        BorderThickness="0" 
+        GlowBrush="Black"  
         Title="ADDING NEW SYNC PROFILE" Height="210" Width="263" ResizeMode="CanMinimize">
     <Grid Margin="0,0,0,-3" HorizontalAlignment="Left" Width="213">
         <TextBox x:Name="syncProfileName" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="16"
@@ -34,16 +36,16 @@
             <materialDesign:PackIcon Kind="Folder" Height="18" Width="18" />
         </Button>
         <StackPanel Orientation="Horizontal" Margin="75,115,39,10" HorizontalAlignment="Center" Width="99">
-            <Button Name="SyncProfilesMenu_Btn"
+            <Button Name="Ok_Btn"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="OK" Click="SyncProfilesMenu_Btn_Click">
+                        ToolTip="OK" Click="Ok_Btn_Click">
                 <materialDesign:PackIcon Kind="Check" Height="24" Width="24" />
             </Button>
-            <Button     x:Name="StopSyncService"
+            <Button     x:Name="Cancel_Btn"
                         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                         Margin="0,8,8,7" HorizontalAlignment="Left"
-                        ToolTip="Decline" Click="StopSyncService_Click">
+                        ToolTip="Decline" Click="Cancel_Btn_Click">
                 <materialDesign:PackIcon Kind="BackupRestore" Height="24" Width="24" />
             </Button>
         </StackPanel>
