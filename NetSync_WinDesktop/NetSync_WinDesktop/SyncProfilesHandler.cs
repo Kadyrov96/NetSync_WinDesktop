@@ -11,7 +11,7 @@ namespace NetSync_WinDesktop
     /// </summary>
     class SyncProfilesHandler
     {
-        static string syncProfilesStore = Directory.GetCurrentDirectory() + @"\profiles.dat";
+        static internal string syncProfilesStore = Directory.GetCurrentDirectory() + @"\profiles.dat";
         static public List<SyncProfile> AvailableProfilesList { get; set; }
         static public List<SyncProfile> SelectedProfilesList { get; set; }
 
@@ -108,6 +108,7 @@ namespace NetSync_WinDesktop
         static public void LoadEmptyProfiles()
         {
             AvailableProfilesList = new List<SyncProfile>();
+            SelectedProfilesList = new List<SyncProfile>();
         }
 
         /// <summary>
