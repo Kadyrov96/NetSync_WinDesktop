@@ -26,10 +26,10 @@
         </Grid.ColumnDefinitions>
         <Grid Margin="35,10,53,152" HorizontalAlignment="Center" Width="334" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" Margin="95,0,94,0" HorizontalAlignment="Center" Width="145">
-                <Button Name="AddNewProfile_Btn1"
+                <Button Name="SyncSelectedProfiles_Btn"
                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="Sync profiles menu">
+                        ToolTip="Sync profiles menu" Click="SyncSelectedProfiles_Btn_Click">
                     <materialDesign:PackIcon Kind="CheckAll" Height="24" Width="24" />
                 </Button>
                 <Button Name="AddNewProfile_Btn"
