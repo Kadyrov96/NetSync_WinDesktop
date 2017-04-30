@@ -170,7 +170,7 @@ namespace NetSync_WinDesktop
         /// Compares synchronization data of local and remote folder
         /// and get result lists of files that have to be downloaded or uploaded.
         /// </summary>
-        public void CompareDevicesSyncData()
+        void CompareDevicesSyncData()
         {
             //Searching for remote syncDataStore file
             string[] searchResults = Directory.GetFiles(Directory.GetCurrentDirectory(), @"_rem.txt", SearchOption.AllDirectories);
