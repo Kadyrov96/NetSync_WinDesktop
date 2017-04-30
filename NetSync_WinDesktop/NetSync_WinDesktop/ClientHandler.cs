@@ -1,6 +1,5 @@
 ﻿using System.Net.Sockets;
 using System.Net.Security;
-using System.IO;
 
 namespace NetSync_WinDesktop
 {
@@ -8,7 +7,6 @@ namespace NetSync_WinDesktop
     {
         TcpClient client;
         IStreamHandler streamHandler;
-        SyncProfile clientProfile;
         Synchroniser syncService;
 
         ClientHandler(TcpClient _tcpClient)
@@ -19,19 +17,17 @@ namespace NetSync_WinDesktop
 
         void ServeClient()
         {
-            clientProfile.ProfileName = streamHandler.ReceiveString();
+            string profileName = streamHandler.ReceiveString();
+            SyncProfile clientProfile = SyncProfilesHandler.SelectedProfilesList.Find(
+                profile => profile.ProfileName == profileName);
 
-            if (MainWindow.syncProfilesList.Contains(clientProfile.ProfileName))
+            if (clientProfile !=null)
             {
                 syncService = new Synchroniser(new FolderHandler(clientProfile.ProfileSyncFolderPath));
-                syncService.CheckLocalChanges();
-
-                streamHandler.ReceiveData(Directory.GetCurrentDirectory());
-                streamHandler.SendData(syncService.CompareDevicesSyncData());
-
-                //TO DO - отправка и прием файлов // 
+                syncService.Synchronise(streamHandler);
             }
+            else
+                streamHandler.SendString();
         }
-
     }
 }
