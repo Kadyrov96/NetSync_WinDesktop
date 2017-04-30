@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace NetSync_WinDesktop
 {
@@ -9,36 +8,47 @@ namespace NetSync_WinDesktop
     /// </summary>
     public partial class ProfileAddingWindow
     {
+        //Delegates for updating the ListView in the SyncProfilesWindow
+        public delegate void DataChangedEventHandler(object sender, EventArgs e);
+        public event DataChangedEventHandler DataChanged;
+
         Synchroniser syncService;
         FolderHandler folderHandler;
-        internal static ListView view1;
 
         public ProfileAddingWindow()
         {
             InitializeComponent();
+
+            double screenHeight = SystemParameters.FullPrimaryScreenHeight;
+            double screenWidth = SystemParameters.FullPrimaryScreenWidth;
+            Top = (screenHeight - Height) / 2;
+            Left = (screenWidth - Width) / 2;
+
             folderHandler = new FolderHandler();
-            view1 = new ListView();
+        }
+
+        private void Ok_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            DataChangedEventHandler handler = DataChanged;
+            bool isAdded = SyncProfilesHandler.AddNewProfile(syncProfileName.Text, syncFolder.Text);
+            if (isAdded)
+            {
+                syncService = new Synchroniser(folderHandler);
+                syncService.CreateSyncDataStore();
+                Close();
+                handler?.Invoke(this, new EventArgs());
+            }
+        }
+
+        private void Cancel_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void SelectFolder_Btn_Click(object sender, RoutedEventArgs e)
         {
             folderHandler.SelectFolder();
             syncFolder.Text = folderHandler.FolderPath;
-        }
-
-        private void StopSyncService_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void SyncProfilesMenu_Btn_Click(object sender, RoutedEventArgs e)
-        {
-            SyncProfilesHandler.AddNewProfile(syncProfileName.Text, syncFolder.Text);
-
-            syncService = new Synchroniser(folderHandler);
-            syncService.CreateSyncDataStore();
-            //ProfileAddingWindow.profilesListView.Items.Refresh();
-            Close();
         }
     }
 }
