@@ -126,5 +126,23 @@ namespace NetSync_WinDesktop
             foreach (var item in AvailableProfilesList)
                 SaveProfile(item);
         }
+
+        /// <summary>
+        /// Updates profile's date and time of the synchronization.
+        /// </summary>
+        static public void UpdateProfile(SyncProfile profile)
+        {
+            string[] syncProfilesArray = File.ReadAllLines(syncProfilesStore);
+            foreach (var profileString in syncProfilesArray)
+            {
+                if (profileString.Contains(profile.ProfileName))
+                {
+                    profileString.Replace(profile.SyncDateTime, DateTime.Now.ToString());
+                    break;
+                }                 
+            }
+
+            SaveProfile(profile);
+        }
     }
 }
