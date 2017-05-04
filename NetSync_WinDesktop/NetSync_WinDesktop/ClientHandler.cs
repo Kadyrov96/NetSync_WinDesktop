@@ -25,6 +25,7 @@ namespace NetSync_WinDesktop
             {
                 syncService = new Synchroniser(new FolderHandler(clientProfile.ProfileSyncFolderPath));
                 syncService.Synchronise(streamHandler);
+                SyncProfilesHandler.UpdateProfile(clientProfile);
             }
             else
                 streamHandler.SendString();
