@@ -35,7 +35,13 @@ namespace NetSync_WinDesktop
         /// </summary>
         static bool CheckInputData(SyncProfile newProfile)
         {
-            if (AvailableProfilesList.Count != 0)
+            if (newProfile.ProfileName == "" || newProfile.ProfileSyncFolderPath == "")
+            {
+                MessageBox.Show("The name or/and filepath. Please, enter name and select folder",
+                    "Input data entering error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            else if (AvailableProfilesList.Count != 0)
             {
                 int searchIndex = 0;
                 for (int i = 0; i < AvailableProfilesList.Count; i++)
@@ -139,7 +145,7 @@ namespace NetSync_WinDesktop
                 {
                     profileString.Replace(profile.SyncDateTime, DateTime.Now.ToString());
                     break;
-                }                 
+                }
             }
 
             SaveProfile(profile);
