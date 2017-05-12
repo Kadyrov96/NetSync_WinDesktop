@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows;
@@ -12,17 +11,11 @@ namespace NetSync_WinDesktop
     /// </summary>
     public partial class MainWindow
     {
-        public static List<string> syncProfilesList;
-        private Thread thread;
-        private SSL_Server sslServer;
+        Thread ServerThread;
         public MainWindow()
         {
             InitializeComponent();
             HandleTray();
-
-            sslServer = new SSL_Server();
-            thread = new Thread(sslServer.RunServer);
-            thread.Start();
 
             double screenHeight = SystemParameters.FullPrimaryScreenHeight;
             double screenWidth = SystemParameters.FullPrimaryScreenWidth;
@@ -71,12 +64,9 @@ namespace NetSync_WinDesktop
 
         private void StartSyncService_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            if(!thread.IsAlive)
-            {
-                thread.Start();
-            }
-            */
+            ServerThread = new Thread(TCP_Server.Proccess);
+            ServerThread.Name = "Server thread";
+            ServerThread.Start();
         }
 
         private void StopSyncService_Click(object sender, RoutedEventArgs e)
