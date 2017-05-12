@@ -11,8 +11,6 @@ namespace NetSync_WinDesktop
 {
     public class SSL_Server
     {
-
-        /* //TO DO// Многопользовательский сервер - несколько потоков или несколько TCP клиентов? Решить вопрос */
         private SslStream sslStream;
         private List<TcpClient> tcpClientsList;
         public List<TcpClient> TcpClientsList
