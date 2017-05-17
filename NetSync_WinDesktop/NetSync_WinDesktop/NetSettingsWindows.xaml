@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NetSync_WinDesktop"
         mc:Ignorable="d"
-        Icon="E:\NetSync_WinDesktop\NetSync_WinDesktop\Drawable\logo.ico"
+
         ShowIconOnTitleBar="False"
         Title="WIFI SETTINGS MENU" Height="150" Width="250" ResizeMode="CanMinimize">
     <Grid>
