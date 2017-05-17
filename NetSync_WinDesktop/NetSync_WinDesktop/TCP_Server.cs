@@ -10,34 +10,35 @@ namespace NetSync_WinDesktop
 {
     public class TCP_Server
     {
-        static string certificatePath = @"C:\Users\Admin\Desktop\123.pfx";
-        static string certificatePassword = "vbhs456";
-        static X509Certificate2 serverCertificate = new X509Certificate2(certificatePath, certificatePassword);
+        const string CERTIFICATE_PATH = @"C:\Users\Admin\Desktop\123.pfx";
+        const string CERTIFICATE_PASSWD = "vbhs456";
+        const int PORT = 816;
 
-        const int port = 8888;
-        static IPAddress ipAddress = Dns.GetHostEntry(Dns.GetHostName()).AddressList[0];
+        static IPAddress ipAddress = Dns.GetHostByName(Dns.GetHostName()).AddressList[0];
+        static TcpListener listener;
+        static TcpClient client;
+        static X509Certificate2 serverCertificate = new X509Certificate2(CERTIFICATE_PATH, CERTIFICATE_PASSWD);
 
         public static SslStream SSLStream { get; private set; }
 
-        static public void Proccess()
+        public static void Proccess()
         {
-            TcpListener listener = new TcpListener(ipAddress, port);
+            listener = new TcpListener(ipAddress, PORT);
             listener.Start();
-            System.Windows.MessageBox.Show("server started");
+            //System.Windows.MessageBox.Show("server started");
 
             try
             {
                 while (true)
                 {
-                    System.Windows.MessageBox.Show("waiting");
                     if (listener.Pending())
                     {
                         TcpClient client = listener.AcceptTcpClient();
                         if (client.Connected)
                         {
-                            SSLStream = new SslStream(client.GetStream(), false);
-                            //sslStream.AuthenticateAsServer(serverCertificate, false, SslProtocols.Tls12, true);
                             System.Windows.MessageBox.Show("client connected");
+                            SSLStream = new SslStream(client.GetStream(), false);
+                            //SSLStream.AuthenticateAsServer(serverCertificate, false, SslProtocols.Tls12, true);
 
                             ClientHandler clienthandler = new ClientHandler(SSLStream);
                             Thread clientThread = new Thread(new ThreadStart(clienthandler.ServeClient));
